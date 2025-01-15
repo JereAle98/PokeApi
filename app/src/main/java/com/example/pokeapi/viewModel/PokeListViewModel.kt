@@ -4,15 +4,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import com.example.pokeapi.data.PokeRepository
-import com.example.pokeapi.data.response.PokeDetailResponse
 import com.example.pokeapi.model.DetailsModel
-import com.example.pokeapi.model.PokeModel
+import com.example.pokeapi.model.PokeWrapperModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,21 +15,35 @@ import javax.inject.Inject
 class PokeListViewModel @Inject constructor
     (private val pokeRepository: PokeRepository): ViewModel(){
 
-    private val _pokemon = mutableStateOf<PokeDetailResponse?>(null)
-    val pokemon: State<PokeDetailResponse?> get() = _pokemon
+    private val _pokemonDetail = mutableStateOf<DetailsModel?>(null)
+    val pokemonDetail: State<DetailsModel?> get() = _pokemonDetail
 
-    fun fetchPokemon(name: String) {
+    private val _allPokemon =  mutableStateOf<PokeWrapperModel?>(null)
+    val allPokemon: State<PokeWrapperModel?> = _allPokemon
+
+    fun fetchAllPokemon(){
         viewModelScope.launch {
             try {
-                val result = pokeRepository.getPokemonByName(name)
-                _pokemon.value = result
+                val result = pokeRepository.getAllPokemons()
+                _allPokemon.value = result?.toPokeWrapperModel()
             } catch (e: Exception) {
-                _pokemon.value = null
+                _allPokemon.value = null
             }
         }
     }
 
-    val pokemons: Flow<PagingData<PokeModel>> =
-        pokeRepository.getAllPokemons()
+    fun fetchPokemonDetail(name: String) {
+        viewModelScope.launch {
+            try {
+                val result = pokeRepository.getPokemonByName(name)?.toDetailsModel()
+                _pokemonDetail.value = result
+            } catch (e: Exception) {
+                _pokemonDetail.value = null
+            }
+        }
+    }
+
+
+
 
 }
