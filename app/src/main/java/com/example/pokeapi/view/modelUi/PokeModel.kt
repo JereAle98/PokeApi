@@ -1,4 +1,4 @@
-package com.example.pokeapi.model
+package com.example.pokeapi.view.modelUi
 
 data class PokeModel(
     val name: String,

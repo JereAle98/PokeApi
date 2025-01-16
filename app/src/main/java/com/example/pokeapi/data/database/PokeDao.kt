@@ -1,9 +1,9 @@
-package com.example.pokeapi.database
+package com.example.pokeapi.data.database
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import com.example.pokeapi.data.PokeData
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
@@ -12,8 +12,8 @@ interface PokeDao {
     @Query("SELECT * FROM pokemon")
     fun getAll(): Flow<List<PokeData>>
 
-    @Insert
-    suspend fun insertFriend(pokeData: PokeData)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(allPokeData: List<PokeData>)
 
     @Delete
     suspend fun deleteAllPokeData(allPokeData: List<PokeData>)

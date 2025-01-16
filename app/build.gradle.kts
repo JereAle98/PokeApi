@@ -80,6 +80,9 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
+    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
