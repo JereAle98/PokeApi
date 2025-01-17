@@ -42,20 +42,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.pokeapi.data.database.PokeData
 import com.example.pokeapi.data.Resource
-import com.example.pokeapi.view.pokemonScreen.PokeListViewModel
+import com.example.pokeapi.view.pokemonScreen.PokeViewModel
 
 @Composable
-fun PokeListView(pokeListViewModel: PokeListViewModel = hiltViewModel(), paddingValues: PaddingValues) {
+fun PokeListView(pokeViewModel: PokeViewModel, paddingValues: PaddingValues, navController: NavController) {
     val searchQuery = remember { mutableStateOf("") }
 
-    AllPokemonScreen(pokeListViewModel, searchQuery, paddingValues)
+    AllPokemonScreen(pokeViewModel, searchQuery, paddingValues, navController)
 }
 
 @Composable
-fun AllPokemonScreen(viewModel: PokeListViewModel, searchQuery: MutableState<String>, paddingValues: PaddingValues) {
+fun AllPokemonScreen(viewModel: PokeViewModel, searchQuery: MutableState<String>, paddingValues: PaddingValues, navController: NavController) {
 
     val allPokemon by viewModel.allPokemon.collectAsState()
 
@@ -82,13 +83,13 @@ fun AllPokemonScreen(viewModel: PokeListViewModel, searchQuery: MutableState<Str
                                         ignoreCase = true
                                     )
                                 ) {
-                                    RenderPokemon(pokemon, viewModel)
+                                    RenderPokemon(pokemon,navController)
                                 }
 
 
                             } else {
                                 val pokemon = pokeList[poke]
-                                RenderPokemon(pokemon, viewModel)
+                                RenderPokemon(pokemon,navController)
                             }
                         }
                     }
@@ -113,80 +114,15 @@ fun AllPokemonScreen(viewModel: PokeListViewModel, searchQuery: MutableState<Str
 
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonScreen(viewModel: PokeListViewModel, name: String, closeClick: () -> Unit) {
-    viewModel.fetchPokemonDetail(name)
-    viewModel.fetchPokemonImage(name)
+fun RenderPokemon(pokeData: PokeData, navController: NavController) {
 
-    val pokemon = viewModel.pokemonDetail.value
-    val pokemonImage = viewModel.pokemonImage.value
-
-
-    Box() {
-        BasicAlertDialog(onDismissRequest = {}) {
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Color.White)
-                    .padding(start = 15.dp, bottom = 15.dp, top = 15.dp)
-            ) {
-                Column() {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(text = name.uppercase())
-                        IconButton(onClick = { closeClick() }
-                        ) {
-                            Icon(imageVector = Icons.Default.Close, contentDescription = "Close")
-                        }
-                    }
-
-                    pokemon?.let {
-                        // Mostrar tipos
-                        Text("Tipos: ${it.types.joinToString { type -> type.type.name }}")
-
-                        // Mostrar habilidades
-                        Text("Habilidades: ${it.abilities.joinToString { ability -> ability.ability.name }}")
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                    }
-                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                        pokemonImage?.let {
-
-                            Image(
-                                painter = rememberAsyncImagePainter(it.sprites.imageFront),
-                                contentDescription = null,
-                                modifier = Modifier.size(150.dp),
-                            )
-                            Image(
-                                painter = rememberAsyncImagePainter(it.sprites.imageBack),
-                                contentDescription = null,
-                                modifier = Modifier.size(150.dp),
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun RenderPokemon(pokeData: PokeData, viewModel: PokeListViewModel) {
-    var showAlert by remember { mutableStateOf(false) }
     ListItem(
         {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { showAlert = true }) {
+                    .clickable { navController.navigate("pokemonDetail/${pokeData.name}") }) {
                 Row {
                     Column {
                         Text(
@@ -204,14 +140,7 @@ fun RenderPokemon(pokeData: PokeData, viewModel: PokeListViewModel) {
             }
         }
     )
-    val name = pokeData.name
-    if (showAlert) {
-        PokemonScreen(
-            viewModel = viewModel,
-            name,
-            closeClick = { showAlert = false }
-        )
-    }
+
 }
 
 @Composable

@@ -1,4 +1,4 @@
-package com.example.pokeapi.view.itemScreen.itemListScreen
+package com.example.pokeapi.view.abilityScreen.abilityListScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,35 +22,33 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.pokeapi.data.database.ItemData
 import com.example.pokeapi.data.Resource
-import com.example.pokeapi.view.itemScreen.ItemViewModel
+import com.example.pokeapi.data.database.AbilityData
+import com.example.pokeapi.ui.theme.principal
+import com.example.pokeapi.view.abilityScreen.AbilityViewModel
 
 @Composable
-fun ItemListView(itemViewModel: ItemViewModel, paddingValues: PaddingValues, navController: NavController) {
+fun AbilityListView(abilityViewModel: AbilityViewModel, paddingValues: PaddingValues, navController: NavController) {
     val searchQuery = remember { mutableStateOf("") }
 
-    AllItemScreen(itemViewModel, searchQuery,paddingValues,navController )
+    AllAbilityScreen(abilityViewModel, searchQuery,paddingValues,navController )
 }
 
 @Composable
-fun AllItemScreen(viewModel: ItemViewModel, searchQuery: MutableState<String>, paddingValues: PaddingValues, navController: NavController) {
+fun AllAbilityScreen(viewModel: AbilityViewModel, searchQuery: MutableState<String>, paddingValues: PaddingValues, navController: NavController) {
 
-    val allItem by viewModel.allItem.collectAsState()
+    val allAbility by viewModel.allAbility.collectAsState()
 
-    when (allItem) {
+    when (allAbility) {
         is Resource.Loading -> CircularProgressIndicator()
         is Resource.Success -> {
-            val itemList = (allItem as Resource.Success<List<ItemData>>).data
+            val abilityList = (allAbility as Resource.Success<List<AbilityData>>).data
 
             Column(
                 modifier = Modifier
@@ -59,23 +57,23 @@ fun AllItemScreen(viewModel: ItemViewModel, searchQuery: MutableState<String>, p
             ) {
                 ItemSearchScreen(searchQuery)
                 LazyColumn() {
-                    if (itemList != null) {
-                        items(itemList.size) { item ->
+                    if (abilityList != null) {
+                        items(abilityList.size) { ability ->
                             if (searchQuery.value.isNotEmpty() && searchQuery.value.length >= 3) {
-                                val item = itemList[item]
+                                val ability = abilityList[ability]
 
-                                if (item.name.contains(
+                                if (ability.name.contains(
                                         searchQuery.value,
                                         ignoreCase = true
                                     )
                                 ) {
-                                    RenderItem(item, navController)
+                                    RenderItem(ability, navController)
                                 }
 
 
                             } else {
-                                val item = itemList[item]
-                                RenderItem(item, navController)
+                                val ability = abilityList[ability]
+                                RenderItem(ability, navController)
                             }
                         }
                     }
@@ -85,11 +83,11 @@ fun AllItemScreen(viewModel: ItemViewModel, searchQuery: MutableState<String>, p
         }
 
         is Resource.Error -> {
-            (allItem as Resource.Error).message?.let {
+            (allAbility as Resource.Error).message?.let {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Color.Red),
+                        .background(principal),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(text = it)
@@ -101,17 +99,17 @@ fun AllItemScreen(viewModel: ItemViewModel, searchQuery: MutableState<String>, p
 }
 
 @Composable
-fun RenderItem(itemData: ItemData, navController: NavController) {
+fun RenderItem(abilityData: AbilityData, navController: NavController) {
     ListItem(
         {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { navController.navigate("detail/${itemData.name}") }) {
+                    .clickable { }) {
                 Row {
                     Column {
                         Text(
-                            text = itemData.name.uppercase(),
+                            text = abilityData.name.uppercase(),
                             fontSize = 30.sp,
                             fontWeight = FontWeight.Normal
                         )

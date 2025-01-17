@@ -1,19 +1,29 @@
 package com.example.pokeapi.model
 
+import com.example.pokeapi.view.modelUi.PokeDetailsModel
 import com.google.gson.annotations.SerializedName
 
 
 data class PokeDetailResponse (
+    @SerializedName("name") val name: String,
     @SerializedName("abilities") val abilities: List<PokeAbilitiesResponse>,
-    @SerializedName("types") val types: List<PokeTypesResponse>
+    @SerializedName("types") val types: List<PokeTypesResponse>,
+    @SerializedName("base_experience") val experience: Int,
+    @SerializedName("height") val height: Int,
+    @SerializedName("weight") val weight: Int,
 ){
-    fun toDetailsModel(): DetailsModel {
-        return DetailsModel(
+    fun toPokeDetailModel(): PokeDetailsModel {
+        return PokeDetailsModel(
+            name,
             abilities,
-            types
+            types,
+            experience,
+            height,
+            weight
         )
     }
 }
+
 data class PokeAbilitiesResponse (
     @SerializedName("ability") val ability: PokeAbilityResponse,
     @SerializedName("slot") val slot: Int

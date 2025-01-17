@@ -15,19 +15,21 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.pokeapi.navigation.Routes
 import com.example.pokeapi.ui.theme.principal
+import com.example.pokeapi.ui.theme.secundario
+import com.example.pokeapi.ui.theme.tertario
 
 @Composable
 fun BottomNav(navHostController: NavHostController, routes: List<Routes>){
     BottomAppBar() {
         NavigationBar (
-            containerColor = Color.White
+            containerColor = tertario
         ){
             val currentRoute = CurrentRoute(navHostController)
             routes.forEach{ item->
                 NavigationBarItem(selected = currentRoute == item.route,
                     onClick = {navHostController.navigate(item.route)},
                     icon = {
-                        Icon(painter = painterResource(id = item.icon), contentDescription = item.title, tint = principal)
+                        Icon(painter = painterResource(id = item.icon), contentDescription = item.title, tint = secundario)
                     },
                     label = {
                         Text(text = item.title)

@@ -19,8 +19,8 @@ private val DarkColorScheme = darkColorScheme(
 
 private val LightColorScheme = lightColorScheme(
     primary = principal,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    secondary = secundario,
+    tertiary = tertario
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -52,7 +52,7 @@ fun PokeApiTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = Pixelify,
         content = content
     )
 }

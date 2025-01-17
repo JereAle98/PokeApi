@@ -17,6 +17,11 @@ sealed class Routes(
     object ItemView: Routes(
         icon = R.drawable.pokemonball,
         title = "Item",
-        route = "ItemView")
-
+        route = "ItemView"
+    )
+    object AbilityView: Routes(
+        icon = R.drawable.ability,
+        title = "Ability",
+        route = "AbilityView"
+    )
 }

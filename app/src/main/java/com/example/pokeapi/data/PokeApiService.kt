@@ -1,5 +1,7 @@
 package com.example.pokeapi.data
 
+import com.example.pokeapi.model.AbilityDetailResponse
+import com.example.pokeapi.model.AbilityResponse
 import com.example.pokeapi.model.FormResponse
 import com.example.pokeapi.model.ItemDetailResponse
 import com.example.pokeapi.model.ItemResponse
@@ -25,5 +27,11 @@ interface PokeApiService {
 
     @GET("item/{name}")
     suspend fun getItemDetail(@Path("name")name: String): Response<ItemDetailResponse>
+
+    @GET("ability")
+    suspend fun getAbility(@Query("limit") limit: Int = 400): Response<AbilityResponse>
+
+    @GET("ability/{name}")
+    suspend fun getAbilityDetail(@Path("name")name: String): Response<AbilityDetailResponse>
 
 }

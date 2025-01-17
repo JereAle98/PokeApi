@@ -2,6 +2,7 @@ package com.example.pokeapi.di
 
 import android.app.Application
 import androidx.room.Room
+import com.example.pokeapi.data.database.AbilityDao
 import com.example.pokeapi.data.database.ItemDao
 import com.example.pokeapi.data.database.PokeDao
 import com.example.pokeapi.data.database.PokeDatabase
@@ -31,5 +32,10 @@ object DatabaseModule {
     @Singleton
     fun provideItemDao(db: PokeDatabase): ItemDao {
         return db.itemDao()
+    }
+    @Provides
+    @Singleton
+    fun providesAbilityDao(db: PokeDatabase): AbilityDao{
+        return db.abilityDao()
     }
 }
