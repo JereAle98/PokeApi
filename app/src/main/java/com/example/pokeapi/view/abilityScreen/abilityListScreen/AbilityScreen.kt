@@ -108,7 +108,8 @@ fun RenderItem(abilityData: AbilityData, navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { }) {
+                    .clickable { navController.navigate("abilityDetail/${abilityData.name}") }
+            ) {
                 Row {
                     Column {
                         Text(
@@ -137,7 +138,7 @@ fun ItemSearchScreen(searchQuery: MutableState<String>) {
         TextField(
             value = searchQuery.value,
             onValueChange = { searchQuery.value = it },
-            label = { Text("Enter Item") },
+            label = { Text("Enter Ability") },
             modifier = Modifier.fillMaxWidth()
         )
     }

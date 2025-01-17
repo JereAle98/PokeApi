@@ -3,7 +3,6 @@ package com.example.pokeapi.data
 import com.example.pokeapi.data.database.AbilityDao
 import com.example.pokeapi.data.database.AbilityData
 import com.example.pokeapi.model.AbilityDetailResponse
-import com.example.pokeapi.model.ItemDetailResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -28,7 +27,7 @@ class AbilityRepository @Inject constructor(
         }
     }
 
-    suspend fun deleteAllPokeData(allAbilityData: List<AbilityData>) = abilityDao.deleteAllItemData(allAbilityData)
+    //suspend fun deleteAllPokeData(allAbilityData: List<AbilityData>) = abilityDao.deleteAllItemData(allAbilityData)
 
     suspend fun getAbilityDetail(name: String): AbilityDetailResponse?{
         val response =  api.getAbilityDetail(name)

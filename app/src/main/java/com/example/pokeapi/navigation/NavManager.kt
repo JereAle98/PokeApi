@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.pokeapi.view.abilityScreen.AbilityViewModel
+import com.example.pokeapi.view.abilityScreen.abilityDetailScreen.AbilityDetailScreen
 import com.example.pokeapi.view.abilityScreen.abilityListScreen.AbilityListView
 import com.example.pokeapi.view.itemScreen.ItemViewModel
 import com.example.pokeapi.view.itemScreen.itemDetailScreen.ItemDetailScreen
@@ -27,16 +28,19 @@ fun NavManager(navController: NavHostController,pokeViewModel: PokeViewModel, it
         composable(Routes.AbilityView.route){
             AbilityListView(abilityViewModel,paddingValues, navController)
         }
-
         composable("itemDetail/{name}"){
             val name = it.arguments?.getString("name") ?: ""
             ItemDetailScreen(itemViewModel,name,paddingValues)
         }
-
         composable("pokemonDetail/{name}"){
             val name = it.arguments?.getString("name") ?: ""
             PokemonDetailScreen(pokeViewModel, abilityViewModel,name,paddingValues)
         }
+        composable("abilityDetail/{name}"){
+            val name = it.arguments?.getString("name") ?: ""
+            AbilityDetailScreen(abilityViewModel,name,paddingValues)
+        }
+
 
     }
 }

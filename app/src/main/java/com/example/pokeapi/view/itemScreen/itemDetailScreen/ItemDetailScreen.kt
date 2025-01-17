@@ -105,14 +105,12 @@ fun ItemDetailScreen(viewModel: ItemViewModel, name: String, paddingValues: Padd
                         items(1){
                             Column() {
                                 Text(
-                                    text = "EFFECT: ${result}",
+                                    text = "EFFECT: ${result}\n",
                                     style = MaterialTheme.typography.bodyLarge,
                                     textAlign = TextAlign.Justify,
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold
-
                                 )
-                                Spacer(modifier = Modifier.size(2.dp))
                                 Text(
                                     text = "SHORT EFFECT: ${itemDetail.effect_entries[0].short_effect}",
                                     style = MaterialTheme.typography.bodyLarge,
