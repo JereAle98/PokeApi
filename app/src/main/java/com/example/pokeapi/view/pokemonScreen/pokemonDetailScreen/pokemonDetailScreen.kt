@@ -87,9 +87,11 @@ fun PokemonDetailScreen(viewModel: PokeViewModel,abilityViewModel: AbilityViewMo
                         Text(
                             text = pokemonDetail.name.uppercase(),
                             fontWeight = FontWeight.ExtraBold,
-                            fontSize = 20.sp,
-                            color = Color.White
-                        )
+                            color = Color.White,
+                            fontFamily = PixelifySans,
+                            style = MaterialTheme.typography.titleLarge,
+
+                            )
                         Spacer(modifier = Modifier.height(8.dp))
                         pokemonDetail?.let {
                             Text(
@@ -153,12 +155,12 @@ fun PokemonDetailScreen(viewModel: PokeViewModel,abilityViewModel: AbilityViewMo
 
                                 Text(
                                     text = "ABILITIES: ",
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    textAlign = TextAlign.Justify,
+                                    style = MaterialTheme.typography.titleMedium,
                                     color = Color.White,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = PixelifySans,
 
-                                )
+                                    )
                                 AbilityDetailScreen1(abilityViewModel, ability1)
                                 AbilityDetailScreen2(abilityViewModel, ability2)
                                 AudioPlayerScreen(pokemonDetail.cries.latest)
@@ -179,7 +181,6 @@ fun PokemonDetailScreen(viewModel: PokeViewModel,abilityViewModel: AbilityViewMo
                         border = BorderStroke(width = 4.dp, color = secundario),
                         colors = CardDefaults.cardColors(tertario)
                     ) {
-
                             pokemonDetail?.let {
                                 val cries = pokemonDetail.cries.latest
                                 AudioPlayerScreen(cries)
@@ -223,8 +224,6 @@ fun AudioPlayerScreen(audioUrl: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
-
         // Botón de Play/Reset
         Button(onClick = {
             if (exoPlayer.isPlaying) {
