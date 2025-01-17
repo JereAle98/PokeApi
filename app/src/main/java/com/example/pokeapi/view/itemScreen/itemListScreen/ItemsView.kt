@@ -27,12 +27,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pokeapi.data.database.ItemData
 import com.example.pokeapi.data.Resource
+import com.example.pokeapi.ui.theme.principal
 import com.example.pokeapi.view.itemScreen.ItemViewModel
 
 @Composable
@@ -61,7 +63,7 @@ fun AllItemScreen(viewModel: ItemViewModel, searchQuery: MutableState<String>, p
                 LazyColumn() {
                     if (itemList != null) {
                         items(itemList.size) { item ->
-                            if (searchQuery.value.isNotEmpty() && searchQuery.value.length >= 3) {
+                            if (searchQuery.value.isNotEmpty()) {
                                 val item = itemList[item]
 
                                 if (item.name.contains(
@@ -89,10 +91,11 @@ fun AllItemScreen(viewModel: ItemViewModel, searchQuery: MutableState<String>, p
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Color.Red),
+                        .background(principal)
+                        .padding(16.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = it)
+                    Text(text = it, textAlign = TextAlign.Center, color = Color.White)
                 }
             }
         }
@@ -107,7 +110,7 @@ fun RenderItem(itemData: ItemData, navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { navController.navigate("detail/${itemData.name}") }) {
+                    .clickable { navController.navigate("itemDetail/${itemData.name}") }) {
                 Row {
                     Column {
                         Text(

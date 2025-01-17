@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.pagingCompose)
     implementation(libs.dagger.hilt)
     implementation(libs.dagger.hilt.navigation)
+    implementation(libs.androidx.media3.exoplayer)
     kapt(libs.dagger.hilt.compiler)
 
     implementation(libs.coil.compose)
@@ -81,6 +82,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+
+    implementation("androidx.media3:media3-exoplayer:1.5.0")
+    implementation("androidx.media3:media3-exoplayer-dash:1.5.0")
+    implementation("androidx.media3:media3-ui:1.5.0") // Usa la última versión disponible
+
 
 
     testImplementation(libs.junit)

@@ -32,6 +32,7 @@ fun NavManager(navController: NavHostController,pokeViewModel: PokeViewModel, it
             val name = it.arguments?.getString("name") ?: ""
             ItemDetailScreen(itemViewModel,name,paddingValues)
         }
+
         composable("pokemonDetail/{name}"){
             val name = it.arguments?.getString("name") ?: ""
             PokemonDetailScreen(pokeViewModel, abilityViewModel,name,paddingValues)

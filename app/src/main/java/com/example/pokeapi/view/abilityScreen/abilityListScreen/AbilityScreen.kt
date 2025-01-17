@@ -24,7 +24,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -59,7 +61,7 @@ fun AllAbilityScreen(viewModel: AbilityViewModel, searchQuery: MutableState<Stri
                 LazyColumn() {
                     if (abilityList != null) {
                         items(abilityList.size) { ability ->
-                            if (searchQuery.value.isNotEmpty() && searchQuery.value.length >= 3) {
+                            if (searchQuery.value.isNotEmpty()) {
                                 val ability = abilityList[ability]
 
                                 if (ability.name.contains(
@@ -87,10 +89,11 @@ fun AllAbilityScreen(viewModel: AbilityViewModel, searchQuery: MutableState<Stri
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(principal),
+                        .background(principal)
+                        .padding(16.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = it)
+                    Text(text = it, textAlign = TextAlign.Center, color = Color.White)
                 }
             }
         }

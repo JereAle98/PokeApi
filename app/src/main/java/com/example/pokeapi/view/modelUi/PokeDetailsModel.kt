@@ -1,6 +1,7 @@
 package com.example.pokeapi.view.modelUi
 
 import com.example.pokeapi.model.PokeAbilitiesResponse
+import com.example.pokeapi.model.PokeCriesResponse
 import com.example.pokeapi.model.PokeTypesResponse
 
 data class PokeDetailsModel(
@@ -10,6 +11,7 @@ data class PokeDetailsModel(
     val experience: Int,
     val height: Int,
     val weight: Int,
+    val cries: PokeCriesResponse
 )
 //
 //data class AbilitiesModel(

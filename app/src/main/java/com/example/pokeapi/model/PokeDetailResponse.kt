@@ -11,6 +11,7 @@ data class PokeDetailResponse (
     @SerializedName("base_experience") val experience: Int,
     @SerializedName("height") val height: Int,
     @SerializedName("weight") val weight: Int,
+    @SerializedName("cries") val cries: PokeCriesResponse
 ){
     fun toPokeDetailModel(): PokeDetailsModel {
         return PokeDetailsModel(
@@ -19,11 +20,15 @@ data class PokeDetailResponse (
             types,
             experience,
             height,
-            weight
+            weight,
+            cries
         )
     }
 }
-
+data class PokeCriesResponse(
+    @SerializedName("latest") val latest: String,
+    @SerializedName("legacy") val legacy: String
+)
 data class PokeAbilitiesResponse (
     @SerializedName("ability") val ability: PokeAbilityResponse,
     @SerializedName("slot") val slot: Int

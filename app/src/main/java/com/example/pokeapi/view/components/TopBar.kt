@@ -18,6 +18,7 @@ fun TopBar(){
     TopAppBar(
         navigationIcon = { },
         title = {
+            
             Image(
                 painter = painterResource(id = R.drawable.pokeapi_256),
                 contentDescription = null,

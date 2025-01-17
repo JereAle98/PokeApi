@@ -20,7 +20,7 @@ sealed class Routes(
         route = "ItemView"
     )
     object AbilityView: Routes(
-        icon = R.drawable.ability,
+        icon = R.drawable.abilities,
         title = "Ability",
         route = "AbilityView"
     )

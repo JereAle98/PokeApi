@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -46,17 +47,27 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.pokeapi.data.database.PokeData
 import com.example.pokeapi.data.Resource
+import com.example.pokeapi.ui.theme.principal
 import com.example.pokeapi.view.pokemonScreen.PokeViewModel
 
 @Composable
-fun PokeListView(pokeViewModel: PokeViewModel, paddingValues: PaddingValues, navController: NavController) {
+fun PokeListView(
+    pokeViewModel: PokeViewModel,
+    paddingValues: PaddingValues,
+    navController: NavController
+) {
     val searchQuery = remember { mutableStateOf("") }
 
     AllPokemonScreen(pokeViewModel, searchQuery, paddingValues, navController)
 }
 
 @Composable
-fun AllPokemonScreen(viewModel: PokeViewModel, searchQuery: MutableState<String>, paddingValues: PaddingValues, navController: NavController) {
+fun AllPokemonScreen(
+    viewModel: PokeViewModel,
+    searchQuery: MutableState<String>,
+    paddingValues: PaddingValues,
+    navController: NavController
+) {
 
     val allPokemon by viewModel.allPokemon.collectAsState()
 
@@ -75,7 +86,7 @@ fun AllPokemonScreen(viewModel: PokeViewModel, searchQuery: MutableState<String>
                 LazyColumn() {
                     if (pokeList != null) {
                         items(pokeList.size) { poke ->
-                            if (searchQuery.value.isNotEmpty() && searchQuery.value.length >= 3) {
+                            if (searchQuery.value.isNotEmpty()) {
                                 val pokemon = pokeList[poke]
 
                                 if (pokemon.name.contains(
@@ -83,13 +94,13 @@ fun AllPokemonScreen(viewModel: PokeViewModel, searchQuery: MutableState<String>
                                         ignoreCase = true
                                     )
                                 ) {
-                                    RenderPokemon(pokemon,navController)
+                                    RenderPokemon(pokemon, navController)
                                 }
 
 
                             } else {
                                 val pokemon = pokeList[poke]
-                                RenderPokemon(pokemon,navController)
+                                RenderPokemon(pokemon, navController)
                             }
                         }
                     }
@@ -103,10 +114,11 @@ fun AllPokemonScreen(viewModel: PokeViewModel, searchQuery: MutableState<String>
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Color.Red),
+                        .background(principal)
+                        .padding(16.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = it)
+                    Text(text = it, textAlign = TextAlign.Center, color = Color.White)
                 }
             }
         }
