@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.pokeapi.navigation.Routes
+import com.example.pokeapi.ui.theme.PixelifySans
 import com.example.pokeapi.ui.theme.principal
 import com.example.pokeapi.ui.theme.secundario
 import com.example.pokeapi.ui.theme.tertario
@@ -32,7 +33,7 @@ fun BottomNav(navHostController: NavHostController, routes: List<Routes>){
                         Icon(painter = painterResource(id = item.icon), contentDescription = item.title, tint = secundario)
                     },
                     label = {
-                        Text(text = item.title)
+                        Text(text = item.title, fontFamily = PixelifySans)
                     },
                     alwaysShowLabel = true
                     )

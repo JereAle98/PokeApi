@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -50,7 +51,13 @@ fun AllItemScreen(viewModel: ItemViewModel, searchQuery: MutableState<String>, p
     val allItem by viewModel.allItem.collectAsState()
 
     when (allItem) {
-        is Resource.Loading -> CircularProgressIndicator()
+        is Resource.Loading ->{
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(64.dp), color = Color.Gray
+                )
+            }
+        }
         is Resource.Success -> {
             val itemList = (allItem as Resource.Success<List<ItemData>>).data
 

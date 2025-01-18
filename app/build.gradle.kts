@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.dagger.hilt)
     implementation(libs.dagger.hilt.navigation)
     implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.runtime.livedata)
     kapt(libs.dagger.hilt.compiler)
 
     implementation(libs.coil.compose)

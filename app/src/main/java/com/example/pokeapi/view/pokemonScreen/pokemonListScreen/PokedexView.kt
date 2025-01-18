@@ -72,7 +72,13 @@ fun AllPokemonScreen(
     val allPokemon by viewModel.allPokemon.collectAsState()
 
     when (allPokemon) {
-        is Resource.Loading -> CircularProgressIndicator()
+        is Resource.Loading -> {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(64.dp), color = Color.Gray
+                )
+            }
+        }
         is Resource.Success -> {
             val pokeList = (allPokemon as Resource.Success<List<PokeData>>).data
 

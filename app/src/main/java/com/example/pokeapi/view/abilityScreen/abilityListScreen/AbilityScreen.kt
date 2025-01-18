@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -48,7 +49,13 @@ fun AllAbilityScreen(viewModel: AbilityViewModel, searchQuery: MutableState<Stri
     val allAbility by viewModel.allAbility.collectAsState()
 
     when (allAbility) {
-        is Resource.Loading -> CircularProgressIndicator()
+        is Resource.Loading -> {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(64.dp), color = Color.Gray
+                )
+            }
+        }
         is Resource.Success -> {
             val abilityList = (allAbility as Resource.Success<List<AbilityData>>).data
 
